@@ -11,9 +11,9 @@ redirect_from:
 
 Education
 ======
-* B.S. in GitHub, GitHub University, 2012
-* M.S. in Jekyll, GitHub University, 2014
-* Ph.D in Version Control Theory, GitHub University, 2018 (expected)
+* B.E. in Electrical & Electronics Engineering, Annamalai University, India 2011
+* M.Sc. in Electrical & Computer Engineering, TU Kaiserslautern , Germany, 2015
+* Ph.D in Computer Science, LIT Cyber-Physical Systems Lab, Johannes Kepler University Linz, Austria, 2022 (expected)
 
 Work experience
 ======
