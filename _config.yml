@@ -7,9 +7,9 @@
 
 # Site Settings
 locale                   : "en-US"
-title                    : "Virendra Ashiwal M.Sc."
+title                    : "Virendra Ashiwal"
 title_separator          : "-"
-name                     : &name "Virendra Ashiwal"
+name                     : &name "Virendra Ashiwal M.Sc."
 description              : &description "Researcher at LIT CPS Lab, JKU Linz"
 url                      : https://ashiwalv.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
