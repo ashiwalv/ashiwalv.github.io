@@ -85,7 +85,7 @@ author:
   bio              : "Hello! Welcome to my page. I am PhD student and researcher at LIT CPS Lab, JKU Linz"
   location         : "Linz, Austria"
   employer         : 
-  pubmed           : "https://www.ncbi.nlm.nih.gov/pubmed/?term=john+snow"
+  pubmed           : 
   googlescholar    : "https://scholar.google.com/citations?user=Jf-AU7cAAAAJ&hl=en"
   email            : "ashiwalv@gmail.com"
   researchgate     :  "https://www.researchgate.net/profile/Virendra-Ashiwal"
@@ -109,7 +109,7 @@ author:
   stackoverflow    : # http://stackoverflow.com/users/123456/username
   steam            :
   tumblr           :
-  twitter          : "https://twitter.com/ashiwalv"
+  twitter          : "ashiwalv"
   vine             :
   weibo            :
   xing             :
