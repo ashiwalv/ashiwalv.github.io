@@ -82,7 +82,7 @@ analytics:
 author:
   name             : "Virendra Ashiwal"
   avatar           : "profile.png"
-  bio              : "Hello! Welcome to my page. I am PhD student and researcher at LIT CPS Lab, JKU Linz"
+  bio              : "Research Assitant at LIT CPS Lab, JKU Linz"
   location         : "Linz, Austria"
   employer         : 
   pubmed           : 
@@ -309,5 +309,3 @@ compress_html:
   clippings: all
   ignore:
     envs: development
-
-theme: jekyll-theme-minimal

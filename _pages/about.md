@@ -8,4 +8,4 @@ redirect_from:
   - /about.html
 ---
 
-This is Virenfdra Ashiwal's home page!
+This is Virendra Ashiwal's home page!
