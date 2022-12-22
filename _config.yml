@@ -10,7 +10,7 @@ locale                   : "en-US"
 title                    : "Virendra Ashiwal"
 title_separator          : "-"
 name                     : &name "Virendra Ashiwal M.Sc."
-description              : &description "Research Assistant at LIT CPS Lab, JKU Linz"
+description              : &description "Research Scientist at ABB Corporate Research Center, Ladenburg (Germany)"
 url                      : https://ashiwalv.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : "ashiwalv.github.io"
@@ -82,8 +82,8 @@ analytics:
 author:
   name             : "Virendra Ashiwal"
   avatar           : "photo_virendra_2.jpg"
-  bio              : "Research Assitant at LIT CPS Lab, JKU Linz"
-  location         : "Linz, Austria"
+  bio              : "Research Scientist at ABB Corporate Research Center"
+  location         : "Ladenburg, Germany"
   employer         : 
   pubmed           : 
   googlescholar    : "https://scholar.google.com/citations?user=Jf-AU7cAAAAJ&hl=en"
