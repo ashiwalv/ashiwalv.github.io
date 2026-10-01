@@ -1,46 +1,51 @@
-# Virendra Ashiwal — Minimal Retro Research Portfolio
+# Virendra Ashiwal — Research Portfolio
 
-A static personal research website for GitHub Pages. The redesign uses a fixed left navigation on desktop, a compact mobile menu, and one visible content panel at a time to eliminate excessive scrolling.
+Static personal research website prepared for GitHub Pages.
 
-## Replace the current site
+## Publish at ashiwalv.github.io
 
-From PowerShell, after extracting this package, copy its contents into the cloned repository and run:
+1. Create a **public** GitHub repository named `ashiwalv.github.io`.
+2. Copy every file and folder from this package into the repository root.
+3. Commit and push to the `main` branch.
+4. Open **Settings → Pages**.
+5. Under **Build and deployment**, select **GitHub Actions**.
+6. Wait for the `Deploy static site to GitHub Pages` workflow to finish.
+7. Open `https://ashiwalv.github.io`.
 
-```powershell
-cd C:\Users\Ankita\Documents\Virendra\Code\ashiwalv.github.io
-Copy-Item "PATH-TO-EXTRACTED-FOLDER\*" . -Recurse -Force
+### Command-line deployment
+
+```bash
+git init
 git add .
-git commit -m "Redesign portfolio with minimal retro layout"
-git push origin master
+git commit -m "Launch research portfolio"
+git branch -M main
+git remote add origin https://github.com/ashiwalv/ashiwalv.github.io.git
+git push -u origin main
 ```
 
-Your current repository's default branch is `master`. If you later rename it to `main`, use `git push origin main` instead.
+## Update content
 
-## GitHub Pages settings
+- Professional text and page structure: `index.html`
+- Publication and patent records: `script.js`
+- Theme and layout: `style.css`
+- Portrait: `assets/virendra-ashiwal.jpg`
+- Downloadable CV: `assets/virendra-ashiwal-cv.pdf`
 
-Open **Settings → Pages** and use either:
+## Privacy check before publishing
 
-- **Deploy from a branch** → `master` → `/ (root)`, or
-- **GitHub Actions**, if you already configured a Pages workflow.
+The bundled public CV omits the postal address and telephone number. Review the professional email and all claims before publishing.
 
-The site will be available at `https://ashiwalv.github.io/` after deployment finishes.
+## Data notes
+
+- Publication metadata combines the supplied publication export, CV and public profiles.
+- Citation metrics are a dated October 2026 snapshot and should be refreshed periodically.
+- Patent links run title searches on Google Patents because application serial numbers are not always public publication identifiers.
+- ORCID used: `0000-0001-5845-0512`.
 
 ## Local preview
 
-```powershell
-python -m http.server 8000
+```bash
+python3 -m http.server 8000
 ```
 
-Then open `http://localhost:8000`.
-
-## Content files
-
-- `index.html` — profile, research, experience, education and service
-- `script.js` — publications, patents and interactions
-- `style.css` — retro visual system and responsive layout
-- `assets/virendra-ashiwal.jpg` — portrait
-- `assets/virendra-ashiwal-cv.pdf` — downloadable public CV
-
-## Before publishing
-
-Review the professional email, metrics, employment wording, publication details and patent statuses. Citation metrics are a dated October 2026 snapshot.
+Open `http://localhost:8000`.
