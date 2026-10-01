@@ -30,26 +30,62 @@ const patents = [
   {year:2025,title:'Method for Obtaining Domain-Informed ML/AI Model, Method for Analysing and/or Predicting Drive System and/or Drive Apparatus Behavior, Control Apparatus, Drive Application System, and Computer Program Product',inventors:'Chen Song; Virendra Ashiwal; Pascal Becker; Nicolai Schoch',number:'US 19/083,571'},
   {year:2025,title:'Formalized Drive Systems Information Representation for FAIR Data and Supported and Enhanced Analytics Development Facilitation',inventors:'Nicolai Schoch; Virendra Ashiwal; Pascal Becker',number:'US 19/082,378'}
 ];
+
 const esc=s=>s.replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
 const highlightName=s=>esc(s).replace(/Virendra Ashiwal/g,'<strong>Virendra Ashiwal</strong>');
+const selectedTitles=new Set([
+  'Spec2Control: Automating PLC/DCS control-logic engineering from natural language requirements with LLMs — a multi-plant evaluation',
+  'DriveAIAgent: A Multi-Agent System for Industrial Drive Commissioning and Troubleshooting',
+  'Identification and Evaluation of Pitfalls in the Migration from IEC 61131-3 to IEC 61499: A Review',
+  'LLM-Based and Retrieval-Augmented Control Code Generation',
+  'Automated Control Logic Test Case Generation Using Large Language Models',
+  'Apache Kafka as a Middleware to Support the PLC-Service Bus Architecture with IEC 61499'
+]);
 const list=document.querySelector('[data-publication-list]');
 const search=document.querySelector('#publication-search');
+const searchWrap=document.querySelector('[data-search-wrap]');
 const count=document.querySelector('[data-result-count]');
 const empty=document.querySelector('[data-empty]');
-let active='all';
+const toggleAll=document.querySelector('[data-toggle-all]');
+let showAll=false;
 function renderPublications(){
   const q=search.value.trim().toLowerCase();
-  const visible=publications.filter(p=>(active==='all'||p.tags.includes(active))&&(`${p.title} ${p.authors} ${p.venue} ${p.year}`.toLowerCase().includes(q)));
-  const years=[...new Set(visible.map(p=>p.year))];
-  list.innerHTML=years.map(year=>`<section class="publication-group" aria-labelledby="year-${year}"><h3 class="publication-year" id="year-${year}">${year}</h3><div>${visible.filter(p=>p.year===year).map(p=>`<article class="publication-item" ${p.id?`id="${p.id}"`:''}><div><h3>${esc(p.title)}</h3><p class="authors">${highlightName(p.authors)}</p><p class="venue">${esc(p.venue)} · ${esc(p.pages)}</p></div><a class="pub-link" href="${p.url}" target="_blank" rel="noopener noreferrer" aria-label="Open ${esc(p.title)}">↗</a></article>`).join('')}</div></section>`).join('');
-  count.textContent=visible.length; empty.hidden=visible.length!==0;
+  const base=showAll?publications:publications.filter(p=>selectedTitles.has(p.title));
+  const visible=base.filter(p=>`${p.title} ${p.authors} ${p.venue} ${p.year}`.toLowerCase().includes(q));
+  list.innerHTML=visible.map(p=>`<article class="publication-item" ${p.id?`id="${p.id}"`:''}><span class="pub-year">${p.year}</span><div><h3>${esc(p.title)}</h3><p class="authors">${highlightName(p.authors)}</p><p class="venue">${esc(p.venue)} / ${esc(p.pages)}</p></div><a class="pub-link" href="${p.url}" target="_blank" rel="noopener noreferrer" aria-label="Open ${esc(p.title)}">↗</a></article>`).join('');
+  count.textContent=visible.length;
+  empty.hidden=visible.length!==0;
+  toggleAll.textContent=showAll?'[ SHOW SELECTED ]':'[ SHOW ALL 21 ]';
+  searchWrap.hidden=!showAll;
 }
-document.querySelectorAll('[data-filter]').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('[data-filter]').forEach(b=>b.classList.remove('active'));btn.classList.add('active');active=btn.dataset.filter;renderPublications()}));
+toggleAll.addEventListener('click',()=>{showAll=!showAll;search.value='';renderPublications();toggleAll.focus()});
 search.addEventListener('input',renderPublications);
-document.querySelector('[data-clear-filter]').addEventListener('click',()=>{search.value='';active='all';document.querySelectorAll('[data-filter]').forEach(b=>b.classList.toggle('active',b.dataset.filter==='all'));renderPublications();search.focus()});
+document.querySelector('[data-clear-filter]').addEventListener('click',()=>{search.value='';renderPublications();search.focus()});
 const patentList=document.querySelector('[data-patent-list]');
-patentList.innerHTML=patents.map((p,i)=>{const query=encodeURIComponent(`"${p.title}"`);return `<article class="patent-item"><span class="patent-number">${String(i+1).padStart(2,'0')}</span><div><h3>${esc(p.title)}</h3><p>${highlightName(p.inventors)} · ${p.number} · ${p.year}</p></div><a href="https://patents.google.com/?q=${query}" target="_blank" rel="noopener noreferrer" aria-label="Search for patent ${esc(p.title)}">↗</a></article>`}).join('');
-(function(){const t=document.querySelector('[data-theme-toggle]'),r=document.documentElement;let d=matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';const icons={dark:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>',light:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>'};r.dataset.theme=d;t.innerHTML=icons[d];t.addEventListener('click',()=>{d=d==='dark'?'light':'dark';r.dataset.theme=d;t.setAttribute('aria-label',`Switch to ${d==='dark'?'light':'dark'} mode`);t.innerHTML=icons[d]})})();
-const menu=document.querySelector('[data-menu-toggle]'),nav=document.querySelector('[data-nav-links]');menu.addEventListener('click',()=>{const open=menu.getAttribute('aria-expanded')==='true';menu.setAttribute('aria-expanded',String(!open));nav.classList.toggle('open',!open)});nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');menu.setAttribute('aria-expanded','false')}));
+patentList.innerHTML=patents.map((p,i)=>{const query=encodeURIComponent(`"${p.title}"`);return `<article><span class="record-id">P/${String(i+1).padStart(2,'0')}</span><div><h3>${esc(p.title)}</h3><p>${highlightName(p.inventors)}</p><small>${esc(p.number)} / ${p.year}</small></div><a href="https://patents.google.com/?q=${query}" target="_blank" rel="noopener noreferrer" aria-label="Search for ${esc(p.title)}">↗</a></article>`}).join('');
+
+const views=[...document.querySelectorAll('[data-view]')];
+const routes=[...document.querySelectorAll('[data-route]')];
+const menu=document.querySelector('[data-menu-toggle]');
+const sidebar=document.querySelector('#sidebar');
+const scrim=document.querySelector('[data-scrim]');
+function closeMenu(){sidebar.classList.remove('open');scrim.classList.remove('open');menu.setAttribute('aria-expanded','false')}
+function openRoute(){
+  const requested=location.hash.slice(1)||'home';
+  const target=views.some(v=>v.dataset.view===requested)?requested:'home';
+  views.forEach(v=>v.hidden=v.dataset.view!==target);
+  routes.forEach(a=>{const active=a.dataset.route===target;a.classList.toggle('active',active);if(active)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
+  document.title=`${target==='home'?'Dr. Virendra Ashiwal':target[0].toUpperCase()+target.slice(1)+' — Virendra Ashiwal'}`;
+  closeMenu();
+  window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+  const heading=document.querySelector(`[data-view="${target}"] h2`);if(heading)heading.focus?.({preventScroll:true});
+}
+window.addEventListener('hashchange',openRoute);
+menu.addEventListener('click',()=>{const open=menu.getAttribute('aria-expanded')==='true';sidebar.classList.toggle('open',!open);scrim.classList.toggle('open',!open);menu.setAttribute('aria-expanded',String(!open))});
+scrim.addEventListener('click',closeMenu);
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu()});
+
+(function(){const t=document.querySelector('[data-theme-toggle]'),r=document.documentElement;let d=matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';r.dataset.theme=d;t.addEventListener('click',()=>{d=d==='dark'?'light':'dark';r.dataset.theme=d;t.setAttribute('aria-label',`Switch to ${d==='dark'?'light':'dark'} mode`)})})();
 document.querySelectorAll('[data-download]').forEach(button=>button.addEventListener('click',async()=>{try{const response=await fetch(button.dataset.download);const blob=await response.blob();const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=button.dataset.filename;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}catch{window.open(button.dataset.download,'_blank')}}));
-document.querySelector('[data-year]').textContent=new Date().getFullYear();renderPublications();
+document.querySelector('[data-year]').textContent=new Date().getFullYear();
+renderPublications();openRoute();
