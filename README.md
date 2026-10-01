@@ -2,20 +2,6 @@
 
 A static personal research website for GitHub Pages. The redesign uses a fixed left navigation on desktop, a compact mobile menu, and one visible content panel at a time to eliminate excessive scrolling.
 
-## Replace the current site
-
-From PowerShell, after extracting this package, copy its contents into the cloned repository and run:
-
-```powershell
-cd C:\Users\Ankita\Documents\Virendra\Code\ashiwalv.github.io
-Copy-Item "PATH-TO-EXTRACTED-FOLDER\*" . -Recurse -Force
-git add .
-git commit -m "Redesign portfolio with minimal retro layout"
-git push origin master
-```
-
-Your current repository's default branch is `master`. If you later rename it to `main`, use `git push origin main` instead.
-
 ## GitHub Pages settings
 
 Open **Settings → Pages** and use either:
